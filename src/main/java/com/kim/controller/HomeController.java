@@ -1,4 +1,4 @@
-package com.kim.ex;
+package com.kim.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
