@@ -7,6 +7,9 @@ public class AnswerBoardDto {
 	private String writer;
 	private String regdate;
 	private int viewcnt;
+	private int ref;
+	private int step;
+	private int depth;
 	
 	public int getBno() {
 		return bno;
@@ -19,12 +22,6 @@ public class AnswerBoardDto {
 	}
 	public void setTitle(String title) {
 		this.title = title;
-	}
-	
-	@Override
-	public String toString() {
-		return "BoardDto [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regdate=" + regdate + ", viewcnt=" + viewcnt + "]";
 	}
 	public String getContent() {
 		return content;
@@ -50,6 +47,30 @@ public class AnswerBoardDto {
 	}
 	public void setViewcnt(int viewcnt) {
 		this.viewcnt = viewcnt;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
+	public int getStep() {
+		return step;
+	}
+	public void setStep(int step) {
+		this.step = step;
+	}
+	public int getDepth() {
+		return depth;
+	}
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+	@Override
+	public String toString() {
+		return "AnswerBoardDto [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
+				+ ", regdate=" + regdate + ", viewcnt=" + viewcnt + ", ref=" + ref + ", step=" + step + ", depth="
+				+ depth + "]";
 	}
 	
 }
