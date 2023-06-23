@@ -90,7 +90,8 @@ public class HomeController {
 	
 	//답글작성
 	@RequestMapping(value = "/createasb", method = RequestMethod.GET)
-	public void createAnswerBoard() throws Exception{
+	public void createAnswerBoard(int bno, Model model) throws Exception{
+		model.addAttribute(bno);
 	}
 	@RequestMapping(value = "/createasb", method = RequestMethod.POST)
 	public String createAnswerBoardDB(int bno,RedirectAttributes ra, AnswerBoardDto dto) throws Exception{
