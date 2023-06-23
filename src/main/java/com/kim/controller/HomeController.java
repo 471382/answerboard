@@ -33,6 +33,7 @@ public class HomeController {
 		return "redirect:list";
 	}
 	
+	//글 조회(Main Page)
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public void list(PageMaker pm, Model model) throws Exception{
 		List<AnswerBoardDto> dtos = abs.listSearch(pm);
@@ -40,6 +41,7 @@ public class HomeController {
 		pm.setTotalCount(abs.listSearchCount(pm));
 	}
 	
+	//새 글 작성
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public void create() throws Exception{
 	}
@@ -50,12 +52,14 @@ public class HomeController {
 		return "redirect:list";
 	}
 	
+	//글 보기
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void read(int bno, Model model) throws Exception{
 		AnswerBoardDto dto = abs.read(bno);
 		model.addAttribute(dto);
 	}
 	
+	//글 수정
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public void update(int bno, Model model,PageMaker pm) throws Exception{
 		AnswerBoardDto dto = abs.read(bno);
@@ -72,6 +76,7 @@ public class HomeController {
 		return "redirect:list";
 	}
 	
+	//글 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String deleteDB(int bno, PageMaker pm, Model model, RedirectAttributes ra) throws Exception{
 		abs.delete(bno);
@@ -79,6 +84,17 @@ public class HomeController {
 		ra.addAttribute("perPageNum", pm.getPerPageNum());
 		ra.addAttribute("searchType", pm.getSearchType());
 		ra.addAttribute("keyword", pm.getKeyword());
+		ra.addFlashAttribute("msg","success");
+		return "redirect:list";
+	}
+	
+	//답글작성
+	@RequestMapping(value = "/createasb", method = RequestMethod.GET)
+	public void createAnswerBoard() throws Exception{
+	}
+	@RequestMapping(value = "/createasb", method = RequestMethod.POST)
+	public String createAnswerBoardDB(int bno,RedirectAttributes ra, AnswerBoardDto dto) throws Exception{
+		abs.createAnswerBoard(bno, dto);
 		ra.addFlashAttribute("msg","success");
 		return "redirect:list";
 	}

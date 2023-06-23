@@ -44,9 +44,9 @@ public class AnswerBoardServiceImpl implements IAnswerBoardService{
 
 	@Transactional
 	@Override
-	public void createAnswerBoard(AnswerBoardDto dto) throws Exception {
+	public void createAnswerBoard(int bno, AnswerBoardDto dto) throws Exception {
 		AnswerBoardDao dao=sqlSession.getMapper(AnswerBoardDao.class);
-		dao.beforeCreate(dto.getBno());
+		dao.beforeCreate(bno);
 		dao.createAnswerBoard(dto);
 	}
 
