@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     'N');
 </insert>
 
-<select id="read" resultType="BoardDto">
+<select id="read" resultType="com.kim.dto.AnswerBoardDto">
 	select * from tbl_answerboard where bno=#{bno}
 </select>
 <update id="updateViewCnt">
@@ -41,7 +41,11 @@ update tbl_answerboard set viewcnt = viewcnt + 1 where bno=#{bno}
 	update tbl_answerboard set title=#{title},content=#{content} 
 	where bno=#{bno}
 </update>
-
+<update id="beforeCreate">
+update tbl_answerboard set step=step+1 
+where ref =(select ref from tbl_answerboard where bno=#{bno}) 
+and step > (select step from tbl_answerboard where bno=#{bno});
+</update>
 
 <delete id="delete">
 	delete from tbl_answerboard where bno=#{bno}

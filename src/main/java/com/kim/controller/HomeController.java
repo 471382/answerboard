@@ -2,14 +2,21 @@ package com.kim.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.kim.dto.AnswerBoardDto;
+import com.kim.service.IAnswerBoardService;
+import com.kim.vo.PageMaker;
 
 /**
  * Handles requests for the application home page.
@@ -17,23 +24,62 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Autowired
+	private IAnswerBoardService abs;
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+		return "redirect:list";
 	}
 	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public void list(PageMaker pm, Model model) throws Exception{
+		List<AnswerBoardDto> dtos = abs.listSearch(pm);
+		model.addAttribute("list",dtos);
+		pm.setTotalCount(abs.listSearchCount(pm));
+	}
+	
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public void create() throws Exception{
+	}
+	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	public String createDB(RedirectAttributes ra, AnswerBoardDto dto) throws Exception{
+		abs.createBoard(dto);
+		ra.addFlashAttribute("msg","success");
+		return "redirect:list";
+	}
+	
+	@RequestMapping(value = "/read", method = RequestMethod.GET)
+	public void read(int bno, Model model) throws Exception{
+		AnswerBoardDto dto = abs.read(bno);
+		model.addAttribute(dto);
+	}
+	
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
+	public void update(int bno, Model model,PageMaker pm) throws Exception{
+		AnswerBoardDto dto = abs.read(bno);
+		model.addAttribute(dto);
+	}
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updateDB(AnswerBoardDto dto, PageMaker pm, Model model, RedirectAttributes ra) throws Exception{
+		abs.update(dto);
+		ra.addAttribute("page",pm.getPage());
+		ra.addAttribute("perPageNum", pm.getPerPageNum());
+		ra.addAttribute("searchType", pm.getSearchType());
+		ra.addAttribute("keyword", pm.getKeyword());
+		ra.addFlashAttribute("msg","success");
+		return "redirect:list";
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String deleteDB(int bno, PageMaker pm, Model model, RedirectAttributes ra) throws Exception{
+		abs.delete(bno);
+		ra.addAttribute("page",pm.getPage());
+		ra.addAttribute("perPageNum", pm.getPerPageNum());
+		ra.addAttribute("searchType", pm.getSearchType());
+		ra.addAttribute("keyword", pm.getKeyword());
+		ra.addFlashAttribute("msg","success");
+		return "redirect:list";
+	}
 }

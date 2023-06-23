@@ -14,4 +14,5 @@ public interface AnswerBoardDao {
 	public int listSearchCount(PageMaker pm) throws Exception;				//글 수
 	public void updateViewCnt(int bno);										//조회수 증가
 	public void createAnswerBoard(AnswerBoardDto dto) throws Exception;		//답글 작성
+	public void beforeCreate(int bno) throws Exception;						//답글작성 사전작업 (트랜잭션)
 }
