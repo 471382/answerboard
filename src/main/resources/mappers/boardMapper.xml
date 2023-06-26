@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <update id="updateViewCnt">
 update tbl_answerboard set viewcnt = viewcnt + 1 where bno=#{bno}
 </update>
-<update id="update">
+<update id="update" >
 	update tbl_answerboard set title='#{title}',content='#{content}'
 	where bno=#{bno}
 </update>

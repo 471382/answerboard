@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kim.dto.AnswerBoardDto;
@@ -56,7 +57,6 @@ public class HomeController {
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void read(int bno, Model model) throws Exception{
 		AnswerBoardDto dto = abs.read(bno);
-		System.out.println(dto);
 		model.addAttribute("dto", dto);
 	}
 	
@@ -68,6 +68,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updateDB(AnswerBoardDto dto, PageMaker pm, Model model, RedirectAttributes ra) throws Exception{
+		System.out.println(dto);
 		abs.update(dto);
 		ra.addAttribute("page",pm.getPage());
 		ra.addAttribute("perPageNum", pm.getPerPageNum());
@@ -92,7 +93,7 @@ public class HomeController {
 	//답글작성
 	@RequestMapping(value = "/createasb", method = RequestMethod.GET)
 	public void createAnswerBoard(int bno, Model model) throws Exception{
-		model.addAttribute(bno);
+		model.addAttribute("bno", bno);
 	}
 	@RequestMapping(value = "/createasb", method = RequestMethod.POST)
 	public String createAnswerBoardDB(int bno,RedirectAttributes ra, AnswerBoardDto dto) throws Exception{

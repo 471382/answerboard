@@ -32,7 +32,7 @@
 					location.href = "/ex/create";
 				});
 				$('.ansBtn').on("click", function(event) {
-					location.href = "/ex/anscreate";
+					location.href = "/ex/createasb";
 				});
 			});
 </script>
@@ -77,7 +77,7 @@
 					<td style="width: 200px">${dto.regdate}</td>
 
 					<td style="width: 20px">${dto.viewcnt}</td>
-					<td style="width: 30px"><button class='ansBtn'>답글</button></td>
+					<td style="width: 30px"><a href="/ex/createasb?&bno=${dto.bno }">답글</a></button></td>
 				</tr>
 			</c:forEach>
 		</table>
