@@ -35,10 +35,12 @@ public class AnswerBoardServiceImpl implements IAnswerBoardService{
 		AnswerBoardDao dao=sqlSession.getMapper(AnswerBoardDao.class);
 		dao.update(dto);
 	}
-
+	
+	@Transactional
 	@Override
-	public void delete(int bno) throws Exception {
+	public void delete(int bno,int ref) throws Exception {
 		AnswerBoardDao dao=sqlSession.getMapper(AnswerBoardDao.class);
+		dao.beforeDel(ref);
 		dao.delete(bno);
 	}
 

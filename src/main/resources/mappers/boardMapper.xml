@@ -26,7 +26,9 @@ update tbl_answerboard set step=step+1
 where ref =(select ref from tbl_answerboard where bno=#{bno}) 
 and step > (select step from tbl_answerboard where bno=#{bno})
 </update>
-
+<delete id="beforeDel">
+	delete from tbl_answerboard where ref=#{ref}
+</delete>
 <delete id="delete">
 	delete from tbl_answerboard where bno=#{bno}
 </delete>

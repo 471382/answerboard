@@ -10,6 +10,7 @@ public interface AnswerBoardDao {
 	public AnswerBoardDto read(int bno) throws Exception;					//글 상세보기
 	public void update(AnswerBoardDto dto) throws Exception;				//글 수정
 	public void delete(int bno) throws Exception;							//글 삭제
+	public void beforeDel(int ref) throws Exception;						//글 삭제 사전작업 (트랜잭선,답글도 함께 지우기)
 	public List<AnswerBoardDto> listSearch(PageMaker pm) throws Exception;	//전체글조회
 	public int listSearchCount(PageMaker pm) throws Exception;				//글 수
 	public void updateViewCnt(int bno);										//조회수 증가

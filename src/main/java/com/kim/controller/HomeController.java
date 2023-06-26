@@ -81,7 +81,9 @@ public class HomeController {
 	//글 삭제
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String deleteDB(int bno, PageMaker pm, Model model, RedirectAttributes ra) throws Exception{
-		abs.delete(bno);
+		AnswerBoardDto dto = abs.read(bno);
+		
+		abs.delete(bno,dto.getRef());
 		ra.addAttribute("page",pm.getPage());
 		ra.addAttribute("perPageNum", pm.getPerPageNum());
 		ra.addAttribute("searchType", pm.getSearchType());

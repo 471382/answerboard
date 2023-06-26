@@ -18,10 +18,10 @@
 				$('#searchBtn').on(
 						"click",
 						function(event) {
-							alert("list" + '${pageMaker.makePage(1)}'
+							/* alert("list" + '${pageMaker.makePage(1)}'
 									+ '&searchType='
 									+ $("select option:selected").val()
-									+ "&keyword=" + $('#keywordInput').val());
+									+ "&keyword=" + $('#keywordInput').val()); */
 							self.location = "list" + '${pageMaker.makePage(1)}'
 									+ '&searchType='
 									+ $("select option:selected").val()
@@ -46,13 +46,13 @@
 				<option value="n"
 					<c:out value="${pageMaker.searchType eq '-----'?'selected':'' }"/>>-----</option>
 				<option value="t"
-					<c:out value="${pageMaker.searchType eq 't'?'selected':'' }"/>>title</option>
+					<c:out value="${pageMaker.searchType eq 't'?'selected':'' }"/>>제목</option>
 				<option value="c"
-					<c:out value="${pageMaker.searchType eq 'c'?'selected':'' }"/>>content</option>
+					<c:out value="${pageMaker.searchType eq 'c'?'selected':'' }"/>>내용</option>
 				<option value="w"
-					<c:out value="${pageMaker.searchType eq 'w'?'selected':'' }"/>>writer</option>
+					<c:out value="${pageMaker.searchType eq 'w'?'selected':'' }"/>>작성자</option>
 				<option value="tcw"
-					<c:out value="${pageMaker.searchType eq 'tcw'?'selected':'' }"/>>all</option>
+					<c:out value="${pageMaker.searchType eq 'tcw'?'selected':'' }"/>>모두</option>
 			</select> <input type="text" name="keyword" id="keywordInput"
 				value="${pageMaker.keyword }">
 			<button id="searchBtn">검색</button>
@@ -72,12 +72,12 @@
 				<tr>
 					<td style="width: 10px">${dto.bno }</td>
 					<td style="width: 50px"><a
-						href="/ex/read${pageMaker.makeSearch() }&bno=${dto.bno}"><c:if test = "${dto.depth>0}"><img width="${ dto.depth*20 }px"/>ㄴ</c:if>${dto.title }</a></td>
+						href="/ex/read${pageMaker.makeSearch() }&bno=${dto.bno}"><c:if test = "${dto.depth>0}"><img width="${ dto.depth*20 }px"/>⤷</c:if>${dto.title }</a></td>
 					<td style="width: 30px">${dto.writer}</td>
 					<td style="width: 200px">${dto.regdate}</td>
 
 					<td style="width: 20px">${dto.viewcnt}</td>
-					<td style="width: 30px"><a href="/ex/createasb?&bno=${dto.bno }">답글</a></button></td>
+					<td style="width: 30px"><a href="/ex/createasb?&bno=${dto.bno }">답글 작성하기</a></button></td>
 				</tr>
 			</c:forEach>
 		</table>
