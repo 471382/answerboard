@@ -56,14 +56,15 @@ public class HomeController {
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
 	public void read(int bno, Model model) throws Exception{
 		AnswerBoardDto dto = abs.read(bno);
-		model.addAttribute(dto);
+		System.out.println(dto);
+		model.addAttribute("dto", dto);
 	}
 	
 	//글 수정
 	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public void update(int bno, Model model,PageMaker pm) throws Exception{
 		AnswerBoardDto dto = abs.read(bno);
-		model.addAttribute(dto);
+		model.addAttribute("dto", dto);
 	}
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String updateDB(AnswerBoardDto dto, PageMaker pm, Model model, RedirectAttributes ra) throws Exception{
@@ -77,7 +78,7 @@ public class HomeController {
 	}
 	
 	//글 삭제
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String deleteDB(int bno, PageMaker pm, Model model, RedirectAttributes ra) throws Exception{
 		abs.delete(bno);
 		ra.addAttribute("page",pm.getPage());
